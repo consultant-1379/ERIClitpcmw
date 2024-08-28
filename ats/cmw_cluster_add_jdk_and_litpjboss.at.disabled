@@ -1,0 +1,14 @@
+runLitpScript cluster_common.atlib
+
+# Add jdk to both nodes
+litp create -t package -p /software/items/jdk -o name=jdk
+litp link -t package -p /deployments/test/clusters/cluster1/nodes/node_1/items/jdk -o name=jdk
+litp link -t package -p /deployments/test/clusters/cluster1/nodes/node_2/items/jdk -o name=jdk
+
+# Add litp-jboss to both nodes
+litp create -t package -p /software/items/ERIClitpmnjboss -o name=ERIClitpmnjboss_CXP9030959
+litp link -t package -p /deployments/test/clusters/cluster1/nodes/node_1/items/ERIClitpmnjboss -o name=ERIClitpmnjboss_CXP9030959
+litp link -t package -p /deployments/test/clusters/cluster1/nodes/node_2/items/ERIClitpmnjboss -o name=ERIClitpmnjboss_CXP9030959
+
+litp create_plan
+litp run_plan

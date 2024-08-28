@@ -1,0 +1,77 @@
+<entityTypesFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///home/uablrek/SMF/doc/SAI-AIS-SMF-ETF-A.01.02.xsd" name="$name" provider="$provider">
+<AmfEntityType>
+<AppType name="safAppType=Litp_App" version="safVersion=1.0.0">
+<serviceGroupType name="safSgType=cs1-SgType" version="safVersion=1.0.0"></serviceGroupType>
+</AppType>
+</AmfEntityType>
+<AmfEntityType>
+<SGType name="safSgType=cs1-SgType" version="safVersion=1.0.0">
+<suType name="safSuType=cs1-SuType" version="safVersion=1.0.0"/>
+<redModel>SA_AMF_2N_REDUNDANCY_MODEL</redModel>
+</SGType>
+</AmfEntityType>
+<AmfEntityType>
+<SUType name="safSuType=cs1-SuType" version="safVersion=1.0.0">
+<componentType name="safCompType=cs1-CompType" version="safVersion=1.0.0">
+</componentType>
+<providesServiceType name="safSvcType=cs1-SvcType" version="safVersion=1.0.0">
+</providesServiceType>
+</SUType>
+</AmfEntityType>
+<AmfEntityType>
+<CompType name="safCompType=cs1-CompType" version="safVersion=1.0.0">
+<providesCSType name="safCSType=cs1-CsType" version="safVersion=1.0.0">
+<oneactiveorxstandby/>
+</providesCSType>
+<saAware>
+<healthCheck key="safHealthcheckKey=A9FD64E12C">
+<period lowerBound="240000000000" default="240000000"/>
+<maxDuration lowerBound="180000000000" />
+</healthCheck>
+<independent>
+<instantiateCmd>
+<command>TA_TAPP/bin/ta_tgc.sh</command>
+<args>instantiate 4302</args>
+</instantiateCmd>
+<cleanupCmd>
+<command>TA_TAPP/bin/ta_tgc.sh</command>
+<args>cleanup 4302</args>
+</cleanupCmd>
+</independent>
+</saAware>
+<bundleReference name="safSmfBundle=ERIC-TestApp-CXP123456_1-x86_64-R1A01"/>
+</CompType>
+</AmfEntityType>
+<AmfEntityType>
+<CSType name="safCSType=cs1-CsType" version="safVersion=1.0.0"/>
+</AmfEntityType>
+<AmfEntityType>
+<ServiceType name="safSvcType=cs1-SvcType" version="safVersion=1.0.0">
+<csType name="safCSType=cs1-CsType" version="safVersion=1.0.0"/>
+</ServiceType>
+</AmfEntityType>
+<swBundle name="safSmfBundle=ERIC-TestApp-CXP123456_1-x86_64-R1A01">
+<removal>
+<offline>
+<command>bin/remove1</command>
+<args>-t SMF ERIC-TestApp-CXP123456_1-x86_64-R1A01 removal offline</args>
+<serviceUnit/>
+</offline>
+<online>
+<command>bin/remove2</command>
+<args>-t SMF ERIC-TestApp-CXP123456_1-x86_64-R1A01 removal online</args>
+</online>
+</removal>
+<installation>
+<offline>
+<command>bin/install1</command>
+<args>-t SMF ERIC-TestApp-CXP123456_1-x86_64-R1A01 installation online</args>
+<serviceUnit/>
+</offline>
+<online>
+<command>bin/install2</command>
+<args>-t SMF ERIC-TestApp-CXP123456_1-x86_64-R1A01 installation offline</args>
+</online>
+</installation>
+</swBundle>
+</entityTypesFile>

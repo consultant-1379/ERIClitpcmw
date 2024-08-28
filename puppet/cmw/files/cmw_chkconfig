@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# First check that we can log into each node
+for NODE in $(ls -1 /etc/cluster/nodes/all); do
+    HOSTNAME=$(cat /etc/cluster/nodes/all/$NODE/hostname)
+    ssh -o 'StrictHostKeyChecking no' $HOSTNAME ls
+    r=$?
+    if [ $r -ne 0 ]
+    then
+        echo "All nodes not up!"
+        exit $r
+    fi
+done
+
+# Loop All Hosts
+# Creates startup/shutdown scripts
+#
+for NODE in $(ls -1 /etc/cluster/nodes/all); do
+    HOSTNAME=$(cat /etc/cluster/nodes/all/$NODE/hostname)
+    # Setup opensafd
+    ssh -o 'StrictHostKeyChecking no' $HOSTNAME chkconfig --del opensafd
+    ssh -o 'StrictHostKeyChecking no' $HOSTNAME "sed '/BEGIN INIT INFO/ i # chkconfig: 345 99 10' /etc/init.d/opensafd > /tmp/opensafd.tmp; mv -f /tmp/opensafd.tmp /etc/init.d/opensafd; chmod +x /etc/init.d/opensafd"
+    ssh -o 'StrictHostKeyChecking no' $HOSTNAME chkconfig --add opensafd
+    # Setup opensafd
+    ssh -o 'StrictHostKeyChecking no' $HOSTNAME chkconfig --del opensaf_log_sync
+    ssh -o 'StrictHostKeyChecking no' $HOSTNAME "sed '/BEGIN INIT INFO/ i # chkconfig: 345 99 10' /etc/init.d/opensaf_log_sync > /tmp/opensaf_log_sync.tmp; mv -f /tmp/opensaf_log_sync.tmp /etc/init.d/opensaf_log_sync; chmod +x /etc/init.d/opensaf_log_sync"
+    ssh -o 'StrictHostKeyChecking no' $HOSTNAME chkconfig --add opensaf_log_sync
+
+done
+

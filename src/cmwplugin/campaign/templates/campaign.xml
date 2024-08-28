@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ASCII"?>
+    <upgradeCampaign safSmfCampaign="safSmfCampaign=$name">
+    <campaignInfo>
+      <campaignPeriod saSmfCmpgExpectedTime="600000000"/>
+    </campaignInfo>
+    <campaignInitialization>
+      <addToImm/>
+    </campaignInitialization>
+    <upgradeProcedure safSmfProcedure="safSmfProc=SingleStepProc">
+      <outageInfo>
+        <acceptableServiceOutage>
+          <all/>
+        </acceptableServiceOutage>
+        <procedurePeriod saSmfProcPeriod="600000000"/>
+      </outageInfo>
+      <upgradeMethod>
+        <singleStepUpgrade>
+          <upgradeScope>
+            <forAddRemove>
+              <deactivationUnit/>
+              <activationUnit>
+                <swAdd bundleDN="safSmfBundle=$bundle_name" pathnamePrefix="/opt">
+		  <% <plmExecEnv amfNode="safAmfNode=$host,safAmfCluster=myAmfCluster"/> %>
+                </swAdd>
+              </activationUnit>
+            </forAddRemove>
+          </upgradeScope>
+          <upgradeStep/>
+        </singleStepUpgrade>
+      </upgradeMethod>
+    </upgradeProcedure>
+    <campaignWrapup>
+      <waitToCommit/>
+      <waitToAllowNewCampaign/>
+      <removeFromImm/>
+    </campaignWrapup>
+  </upgradeCampaign>

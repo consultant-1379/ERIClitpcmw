@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<entityTypesFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="file:///opt/cba_dx/coremw_sdk/schemas/SAI-AIS-SMF-ETF-A.01.02_OpenSAF.xsd" name="$name" provider="$provider">
+    <swBundle name="safSmfBundle=$name">
+        <removal>
+            <offline>
+                <command>offline-remove.sh</command>
+                <args />
+		<serviceUnit />
+            </offline>
+            <online>
+                <command />
+                <args />
+            </online>
+        </removal>
+        <installation>
+            <offline> 
+                <command>offline-install.sh</command>
+                <args />
+                <serviceUnit />
+            </offline>
+            <online>
+                <command />
+                <args />
+		</online>
+        </installation>
+    </swBundle>
+</entityTypesFile>

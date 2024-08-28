@@ -1,0 +1,23 @@
+# This file is created by puppet.
+# Do not edit it!
+
+<% for node in @nodes %>
+node <%= node["nodenumber"] %> <%= node["nodetype"] %> <%= node["hostname"] %>
+<% end %>
+
+network internal <%= @cluster["internalNetwork"] %>
+
+<% for node in @nodes %><% for iface in node["interface_list"] %>interface <%= node["nodenumber"] %> <%= iface[0] %> ethernet <%= iface[1] %> 
+<% end %>
+<% end %>
+
+<% for node in @nodes %>
+tipc <%= node["nodenumber"] %> <%= node["tipcaddress"] %><% for iface in node["hb_interface_list"] %> <%= iface[0] %><% end %><% end %>
+
+<% for node in @nodes %>
+ip <%= node["nodenumber"] %> <%= @cluster["controlInterface"] %> internal <%= node["ip"] %><% end %>
+
+nfs <%= @cluster["msSubnetIP"] %>
+tipc all networkid <%= @cluster["netID"] %>
+
+quick-reboot all <%= @cluster["quick-reboot"] %>

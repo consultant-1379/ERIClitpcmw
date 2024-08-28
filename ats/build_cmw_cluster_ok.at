@@ -1,0 +1,8 @@
+runLitpScript cluster_common.atlib
+
+#litp create_plan
+
+#litp run_plan
+
+assertDirectoryContents build_cmw_cluster_ok/ /opt/ericsson/nms/litp/etc/puppet/manifests/plugins/
+

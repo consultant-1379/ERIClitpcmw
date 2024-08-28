@@ -1,0 +1,22 @@
+<entityTypesFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="SAI-AIS-SMF-ETF-A.01.02_OpenSAF.xsd" name="$name" provider="$provider">
+    <AmfEntityType>
+        <AppType name="safAppType=$AppType_name" version="safVersion=$version">
+            <serviceGroupType name="safSgType=$SgType_name" version="safVersion=$version"></serviceGroupType>
+        </AppType>
+    </AmfEntityType>
+    <AmfEntityType>
+        <SGType name="safSgType=$SgType_name" version="safVersion=$version">
+            <suType name="safSuType=$SuType_name" version="safVersion=$version" />
+            <redModel>$AVAILABILITY_MODEL</redModel>
+            <autoRepairOption>true</autoRepairOption>
+        </SGType>
+    </AmfEntityType>
+    <AmfEntityType>
+        <SUType name="safSuType=$SuType_name" version="safVersion=$version">
+            <providesServiceType name="safSvcType=$SvcType_name" version="safVersion=$version" />
+        </SUType>
+    </AmfEntityType>
+    <AmfEntityType>
+        <ServiceType name="safSvcType=$SvcType_name" version="safVersion=$version"></ServiceType>
+    </AmfEntityType>
+</entityTypesFile>

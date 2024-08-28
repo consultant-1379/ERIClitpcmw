@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd /root/CMW
+sh install.sh
+r=$?
+echo $r
+
+exit $r

@@ -1,0 +1,50 @@
+#!/bin/bash
+
+#if [ ! -f /root/CMW/install.sh ];
+#then
+#    echo "CMW not ready to be installed, the install script is not present"
+#    exit 1
+#fi
+
+count=$(grep -c node /cluster/etc/cluster.conf)
+
+if [ $count -gt 0 ]
+then
+
+for n in $(tipc-config -n | egrep -c -e "down|none")
+do
+if [ $n -ne 0 ]
+then
+    echo "CMW not ready to be installed - TIPC related issue"
+    exit 1
+fi
+done
+
+tipccount=$(tipc-config -l | grep -c up)
+
+[ $(awk '/^tipc/{print NF; exit}' /cluster/etc/cluster.conf) -gt 4 ] && {
+    # Redundant TIPC config
+    tipccount=$(($(($tipccount + 1)) / 2))
+}
+
+if [ $count -ne $tipccount ]
+then
+    echo "CMW not ready to be installed - TIPC related issue"
+    exit 1
+fi
+
+for node in `grep node /cluster/etc/cluster.conf |awk '{ print $4 }'`
+do
+    ssh $node -oStrictHostKeyChecking=no -oBatchMode=yes "ls /cluster/etc > /dev/null"
+    if [ $? -ne 0 ]
+    then
+        echo "CMW not ready to be installed - All nodes must be accessible"
+        exit 1
+    fi
+done
+
+echo "CMW check completed successfully"
+exit 0
+
+fi
+exit 1
